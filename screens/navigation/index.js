@@ -20,7 +20,7 @@ const AppStack = createStackNavigator({
         screen: MainDashboard,
         navigationOptions: ({navigation}) => ({
             headerRight: <Toggle navigation={navigation} />,
-            headerTitle: "DASHBOARD"
+            headerTitle: "Home"
         })
     }
 }, {
