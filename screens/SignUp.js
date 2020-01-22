@@ -1,9 +1,7 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, View, Text, StatusBar, Image, Button } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, StatusBar } from 'react-native';
 import { TouchableOpacity, TextInput } from 'react-native';
-import { Header, Colors } from 'react-native/Libraries/NewAppScreen';
 import globalStyles from '../styles/global';
-import { TextInput } from 'react-native-gesture-handler';
 
 const SignUp: () => React$Node = () => {
 	return (

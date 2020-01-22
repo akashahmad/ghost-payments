@@ -1,8 +1,7 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, View, Text, StatusBar, Image, Button, TouchableOpacity } from 'react-native';
-import { Header, Colors } from 'react-native/Libraries/NewAppScreen';
-import globalStyles from './styles/global';
-import LogSignImageLogo from './assets/img/log-sign-logo.png';
+import globalStyles from '../styles/global';
+import LogSignImageLogo from '../assets/img/log-sign-logo.png';
 
 const Auth: () => React$Node = () => {
 	return (
