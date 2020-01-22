@@ -6,6 +6,9 @@ import {View} from "react-native";
 import Toggle from "../commonComponents/toggle";
 import SideMenu from "../commonComponents/sideMenu/container";
 import MainDashboard from "../mainDashboard/container";
+import Login from "../LogIn/container";
+import SignUp from "../SignUp";
+import Auth from "../Auth";
 
 function Navgation() {
 
@@ -22,7 +25,28 @@ const AppStack = createStackNavigator({
             headerRight: <Toggle navigation={navigation} />,
             headerTitle: "Home"
         })
-    }
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: ({navigation}) => ({
+            headerRight: <Toggle navigation={navigation} />,
+            headerTitle: "Log In"
+        })
+    },
+    Signup: {
+        screen: SignUp,
+        navigationOptions: ({navigation}) => ({
+            headerRight: <Toggle navigation={navigation} />,
+            headerTitle: "Sign Up"
+        })
+    },
+    Auth: {
+        screen: Auth,
+        navigationOptions: ({navigation}) => ({
+            headerRight: <Toggle navigation={navigation} />,
+            headerTitle: "Auth"
+        })
+    },
 }, {
     defaultNavigationOptions: {
         headerStyle: {
@@ -41,7 +65,7 @@ const AppStack = createStackNavigator({
 const AppNavigator = createDrawerNavigator({
     Home: AppStack
 },{
-    drawerBackgroundColor: "#32c5ff",
+    drawerBackgroundColor: "black",
     unmountInactiveRoutes: true,
     drawerPosition: "right",
     contentComponent: SideMenu,

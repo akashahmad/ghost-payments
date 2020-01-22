@@ -11,7 +11,7 @@ function App({loader, loggedIn}) {
             // loggedIn ?
                 <Navigations/>
                 // :
-                // <Login/>
+            // <Login/>
         }
         {
             loader &&
