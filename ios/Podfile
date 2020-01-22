@@ -36,6 +36,8 @@ target 'GhostPayments' do
 
   pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
 
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+
   target 'GhostPaymentsTests' do
     inherit! :search_paths
     # Pods for testing
