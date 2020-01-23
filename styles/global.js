@@ -5,13 +5,14 @@ const globalStyles = StyleSheet.create({
     heroIsFullHeight: {
         flex: 1,
         backgroundColor: 'black',
+        height:"100%",
+        width:"100%",
     },
 
     heroCenter: {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: '50%'
     },
 
     LogInSignUpLogo: {
