@@ -22,15 +22,22 @@ const AppStack = createStackNavigator({
     Home: {
         screen: MainDashboard,
         navigationOptions: ({navigation}) => ({
-            headerRight: () => <Toggle navigation={navigation}/>,
+            headerLeft: () => <Toggle navigation={navigation}/>,
             headerTitle: "Home"
+        })
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: ({navigation}) => ({
+            headerLeft: () => <Toggle navigation={navigation}/>,
+            headerTitle: "Login"
         })
     }
 }, {
     defaultNavigationOptions: {
         headerStyle: {
             backgroundColor: 'black',
-            height: 70,
+            height: 80,
         },
         headerTintColor: 'white',
         headerTitleStyle: {
@@ -46,7 +53,7 @@ const AppNavigator = createDrawerNavigator({
 }, {
     drawerBackgroundColor: "black",
     unmountInactiveRoutes: true,
-    drawerPosition: "right",
+    drawerPosition: "left",
     contentComponent: SideMenu,
     defaultNavigationOptions: {}
 });

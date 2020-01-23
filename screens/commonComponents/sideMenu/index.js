@@ -32,6 +32,9 @@ class SideMenu extends Component {
                         <TouchableOpacity onPress={this.navigateToScreen('Home')}>
                             <Text style={styles.navItemStyle}>Home</Text>
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={this.navigateToScreen('Login')}>
+                            <Text style={styles.navItemStyle}>Login</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.signOut()}>
                             <Text style={styles.navItemStyle}>SIGN OUT</Text>
                         </TouchableOpacity>

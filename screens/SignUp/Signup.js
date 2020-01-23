@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text, StyleSheet} from 'react-native';
+import {SafeAreaView, Text, StyleSheet, View, Image} from 'react-native';
 import {TouchableOpacity, TextInput} from 'react-native';
+import ArrowImage from '../../assets/img/arrow.png';
 
 function SignUp(props) {
     let {setShow, dispatch} = props;
@@ -9,26 +10,56 @@ function SignUp(props) {
         switch (showSignup) {
             case "email":
                 return <SafeAreaView style={styles.signUpView}>
+                    <View style={styles.fullWidth}>
+                        <TouchableOpacity onPress={() => setShowSignup(null)}>
+                            <Image 
+                                source={ArrowImage}
+                                style={styles.arrowStyle}
+                            >
+                            </Image>
+                        </TouchableOpacity>
+                    </View>	
                     <Text style={styles.signUpTexts}>Enter Email</Text>
                     <TextInput placeholder={'email@domail.com'} style={styles.signUpInputFields}/>
                     <TouchableOpacity style={styles.signButton}
-                                      onPress={() => dispatch({type: "SET_LOGGEDIN", payload: true})}>
-                        <Text style={styles.logInButtonTextss}>SIGN UP</Text>
+                                      onPress={() => setShowSignup("password")}>
+                        <Text style={styles.logInButtonTextss}>NEXT</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.signButton} onPress={() => setShowSignup(null)}>
-                        <Text style={styles.logInButtonTextss}>BACK</Text>
+                </SafeAreaView>;
+            case "password":
+                return <SafeAreaView style={styles.signUpView}>
+                    <View style={styles.fullWidth}>
+                        <TouchableOpacity onPress={() => setShowSignup(null)}>
+                            <Image 
+                                source={ArrowImage}
+                                style={styles.arrowStyle}
+                            >
+                            </Image>
+                        </TouchableOpacity>
+                    </View>	
+                    <Text style={styles.signUpTexts}>Enter Password</Text>
+                    <TextInput placeholder={'password'} style={styles.signUpInputFields}/>
+                    <TouchableOpacity style={styles.signButton}
+                                    onPress={() => dispatch({type: "SET_LOGGEDIN", payload: true})}>
+                        <Text style={styles.logInButtonTextss}>SIGN UP</Text>
                     </TouchableOpacity>
                 </SafeAreaView>;
             default:
                 return <SafeAreaView style={styles.signUpView}>
+                    <View style={styles.fullWidth}>
+                        <TouchableOpacity onPress={() => setShow(null)}>
+                            <Image 
+                                source={ArrowImage}
+                                style={styles.arrowStyle}
+                            >
+                            </Image>
+                        </TouchableOpacity>
+                    </View>	
                     <Text style={styles.signUpTexts}>Enter Name</Text>
                     <TextInput placeholder={'First name'} style={styles.signUpInputFields}/>
                     <TextInput placeholder={'Last name'} style={styles.signUpInputFieldss}/>
                     <TouchableOpacity onPress={() => setShowSignup("email")} style={styles.signButton}>
                         <Text style={styles.logInButtonTextss}>NEXT</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.signButton} onPress={() => setShow(null)}>
-                        <Text style={styles.logInButtonTextss}>BACK</Text>
                     </TouchableOpacity>
                 </SafeAreaView>
         }
@@ -41,6 +72,19 @@ function SignUp(props) {
 export default SignUp;
 
 const styles = StyleSheet.create({
+
+    fullWidth: {
+		width: '100%',
+		display: 'flex',
+		textAlign: 'left',
+		marginLeft: 35
+	},
+
+	arrowStyle: {
+		height: 16,
+		width: 16,
+    },
+    
     signUpView: {
         backgroundColor: 'black',
         flex: 1,
