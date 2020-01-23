@@ -8,7 +8,7 @@ function Dashboard() {
                 <Text style={styles.homeView}>Hello World</Text>
             </View>
         </ScrollView>
-    </View>
+    </View> 
 }
 
 export default Dashboard;

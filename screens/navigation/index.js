@@ -44,7 +44,6 @@ const AppStack = createStackNavigator({
         screen: Auth,
         navigationOptions: ({navigation}) => ({
             headerRight: () => <Toggle navigation={navigation} />,
-            headerTitle: "Auth"
         })
     },
 }, {

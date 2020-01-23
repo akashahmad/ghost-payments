@@ -2,14 +2,29 @@ import { StyleSheet } from 'react-native';
 
 const globalStyles = StyleSheet.create({
 
+    newHero: {
+        flex: 1,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: '25%'
+    },
+
+    newCenter: {
+        flex: 1,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex'
+    },
+
     heroIsFullHeight: {
         flex: 1,
         backgroundColor: 'black',
-        height:"100%",
-        width:"100%",
     },
 
     heroCenter: {
+        flex: 1,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -18,7 +33,13 @@ const globalStyles = StyleSheet.create({
     LogInSignUpLogo: {
         height: 110,
         width: 110,
-        marginBottom: 30
+        marginBottom: 25
+    },
+
+    LogInSignUpLogoss: {
+        height: 110,
+        width: 110,
+        marginTop: 18
     },
 
     logInButton: {
@@ -40,7 +61,8 @@ const globalStyles = StyleSheet.create({
         paddingLeft: 94,
         paddingRight: 94,
         paddingTop: 15,
-        paddingBottom: 15
+        paddingBottom: 15,
+        marginTop: 15
     },
 
     logInButtonText: {
@@ -51,6 +73,29 @@ const globalStyles = StyleSheet.create({
 
     moveDown: {
         marginTop: 15
+    },
+
+    signUpText: {
+        fontSize: 40,
+        color: 'white',
+        fontWeight: '700' 
+    },
+
+    nameText: {
+        fontSize: 20,
+        color: 'white',
+        fontWeight: '400'
+    },
+
+    signUpInputField: {
+        borderWidth: 1,
+        borderColor: 'white',
+        padding: 12,
+        width: '90%',
+        borderWidth: 2,
+        borderRadius: 6,
+        backgroundColor: 'white',
+        color: 'black'
     }
 
 });
