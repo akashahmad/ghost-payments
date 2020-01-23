@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, View, Text, StatusBar, Image, Button, TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, StatusBar, Image, Button, TouchableOpacity, StyleSheet } from 'react-native';
 import globalStyles from '../styles/global';
 import LogSignImageLogo from '../assets/img/log-sign-logo.png';
 
@@ -16,7 +16,7 @@ function Auth() {
 			<TouchableOpacity style={globalStyles.logInButtons}>
 				<Text style={globalStyles.logInButtonText}>SIGN UP</Text>
 			</TouchableOpacity>	
-		</View>
+		</View>	
 	)
 }
 
