@@ -22,28 +22,28 @@ const AppStack = createStackNavigator({
     Home: {
         screen: MainDashboard,
         navigationOptions: ({navigation}) => ({
-            headerRight: <Toggle navigation={navigation} />,
+            headerRight: () => <Toggle navigation={navigation} />,
             headerTitle: "Home"
         })
     },
     Login: {
         screen: Login,
         navigationOptions: ({navigation}) => ({
-            headerRight: <Toggle navigation={navigation} />,
+            headerRight: () => <Toggle navigation={navigation} />,
             headerTitle: "Log In"
         })
     },
     Signup: {
         screen: SignUp,
         navigationOptions: ({navigation}) => ({
-            headerRight: <Toggle navigation={navigation} />,
+            headerRight: () => <Toggle navigation={navigation} />,
             headerTitle: "Sign Up"
         })
     },
     Auth: {
         screen: Auth,
         navigationOptions: ({navigation}) => ({
-            headerRight: <Toggle navigation={navigation} />,
+            headerRight: () => <Toggle navigation={navigation} />,
             headerTitle: "Auth"
         })
     },
