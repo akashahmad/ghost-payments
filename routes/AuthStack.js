@@ -2,7 +2,7 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Auth from '../screens/Auth';
 import LogIn from '../screens/LogIn/LogIn';
-import SignUp from '../screens/SignUp';
+import SignUp from '../screens/SignUp/container';
 
 const screens = {
     Auth: {

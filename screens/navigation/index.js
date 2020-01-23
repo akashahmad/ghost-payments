@@ -7,7 +7,7 @@ import Toggle from "../commonComponents/toggle";
 import SideMenu from "../commonComponents/sideMenu/container";
 import MainDashboard from "../mainDashboard/container";
 import Login from "../LogIn/container";
-import SignUp from "../SignUp";
+import SignUp from "../SignUp/container";
 import Auth from "../Auth";
 
 function Navgation() {
@@ -22,30 +22,10 @@ const AppStack = createStackNavigator({
     Home: {
         screen: MainDashboard,
         navigationOptions: ({navigation}) => ({
-            headerRight: () => <Toggle navigation={navigation} />,
+            headerRight: () => <Toggle navigation={navigation}/>,
             headerTitle: "Home"
         })
-    },
-    Login: {
-        screen: Login,
-        navigationOptions: ({navigation}) => ({
-            headerRight: () => <Toggle navigation={navigation} />,
-            headerTitle: "Log In"
-        })
-    },
-    Signup: {
-        screen: SignUp,
-        navigationOptions: ({navigation}) => ({
-            headerRight: () => <Toggle navigation={navigation} />,
-            headerTitle: "Sign Up"
-        })
-    },
-    Auth: {
-        screen: Auth,
-        navigationOptions: ({navigation}) => ({
-            headerRight: () => <Toggle navigation={navigation} />,
-        })
-    },
+    }
 }, {
     defaultNavigationOptions: {
         headerStyle: {
@@ -63,14 +43,12 @@ const AppStack = createStackNavigator({
 
 const AppNavigator = createDrawerNavigator({
     Home: AppStack
-},{
+}, {
     drawerBackgroundColor: "black",
     unmountInactiveRoutes: true,
     drawerPosition: "right",
     contentComponent: SideMenu,
-    defaultNavigationOptions:{
-
-    }
+    defaultNavigationOptions: {}
 });
 
 const AppContainer = createAppContainer(AppNavigator);

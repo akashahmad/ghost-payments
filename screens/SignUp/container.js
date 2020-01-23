@@ -1,5 +1,5 @@
 import React from "react";
-import Component from "./LogIn";
+import Component from "./Signup";
 import {Consumer} from '../../store';
 const index = (props) => {
     let {setShow} = props;
