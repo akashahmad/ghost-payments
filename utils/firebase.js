@@ -4,14 +4,14 @@ import { Platform } from "react-native";
 
 
 const iosConfig =  {
-    clientId: "887552431013-ibcfqit3ras3npq20q35gfuouag31j59.apps.googleusercontent.com",
-    apiKey: "AIzaSyCmwvE24ptDmbwTrhMu8qsZ6NEQG5HB2Dw",
-    authDomain: "fur-baby-tracker-dev.firebaseapp.com",
-    databaseURL: "https://fur-baby-tracker-dev.firebaseio.com",
-    projectId: "fur-baby-tracker-dev",
-    storageBucket: "fur-baby-tracker-dev.appspot.com",
-    messagingSenderId: "887552431013",
-    appId: "1:887552431013:ios:dfbc94d6f26f010f2dce4c"
+    clientId: "264237725329-f95sd04n49078f9l1k93igb81l2cs89a.apps.googleusercontent.com",
+    apiKey: "AIzaSyDw_xwhYY4e_Q_NW9bgTeihqRUMuAIjXgU",
+    authDomain: "ghost-payments.firebaseapp.com",
+    databaseURL: "https://ghost-payments.firebaseio.com",
+    projectId: "ghost-payments",
+    storageBucket: "ghost-payments.appspot.com",
+    messagingSenderId: "264237725329",
+    appId: "1:264237725329:ios:872f9fdc515e92cdd43130"
 }
 const androidConfig = {
     clientId: "264237725329-ud011q3u5grk8tqekalil433hfqnqdm9.apps.googleusercontent.com",
