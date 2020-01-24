@@ -20,7 +20,7 @@ function SignUp(props) {
                         </TouchableOpacity>
                     </View>	
                     <Text style={styles.signUpTexts}>Enter Email</Text>
-                    <TextInput placeholder={'email@domail.com'} style={styles.signUpInputFields}/>
+                    <TextInput placeholder={'Email address'} style={styles.signUpInputFields}/>
                     <TouchableOpacity style={styles.signButton}
                                       onPress={() => setShowSignup("password")}>
                         <Text style={styles.logInButtonTextss}>NEXT</Text>
@@ -38,7 +38,7 @@ function SignUp(props) {
                         </TouchableOpacity>
                     </View>	
                     <Text style={styles.signUpTexts}>Enter Password</Text>
-                    <TextInput placeholder={'password'} style={styles.signUpInputFields}/>
+                    <TextInput placeholder={'Password'} style={styles.signUpInputFields}/>
                     <TouchableOpacity style={styles.signButton}
                                     onPress={() => dispatch({type: "SET_LOGGEDIN", payload: true})}>
                         <Text style={styles.logInButtonTextss}>SIGN UP</Text>

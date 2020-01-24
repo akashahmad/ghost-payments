@@ -6,6 +6,7 @@ import {View} from "react-native";
 import Toggle from "../commonComponents/toggle";
 import SideMenu from "../commonComponents/sideMenu/container";
 import MainDashboard from "../mainDashboard/container";
+import Coffee from "../coffee/index";
 import Login from "../LogIn/container";
 import SignUp from "../SignUp/container";
 import Auth from "../Auth";
@@ -24,6 +25,13 @@ const AppStack = createStackNavigator({
         navigationOptions: ({navigation}) => ({
             headerLeft: () => <Toggle navigation={navigation}/>,
             headerTitle: "Home"
+        })
+    },
+    Coffee: {
+        screen: Coffee,
+        navigationOptions: ({navigation}) => ({
+            headerLeft: () => <Toggle navigation={navigation}/>,
+            headerTitle: "Coffee"
         })
     },
     Login: {
