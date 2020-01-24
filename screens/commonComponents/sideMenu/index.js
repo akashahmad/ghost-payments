@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {NavigationActions} from 'react-navigation';
 import {ScrollView, Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import firebase from "../../../utils/firebase";
 
 class SideMenu extends Component {
     navigateToScreen = (route) => () => {
@@ -13,8 +14,20 @@ class SideMenu extends Component {
     };
 
     signOut = () => {
-        let {dispatch} = this.props;
-        dispatch({type: "SET_LOGGEDIN", payload: false})
+        let { dispatch } = this.props;
+        dispatch({
+            type: "SET_USER",
+            payload: null
+        });
+        dispatch({
+            type: "SET_ID",
+            payload: null
+        });
+        dispatch({
+            type: "SET_LOGGEDIN",
+            payload: false
+        });
+        firebase.auth().signOut();
     };
 
     render() {
@@ -31,6 +44,9 @@ class SideMenu extends Component {
                     <View style={styles.navSectionStyle}>
                         <TouchableOpacity onPress={this.navigateToScreen('Home')}>
                             <Text style={styles.navItemStyle}>Home</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={this.navigateToScreen('Login')}>
+                            <Text style={styles.navItemStyle}>Login</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.signOut()}>
                             <Text style={styles.navItemStyle}>SIGN OUT</Text>

@@ -1,34 +1,163 @@
 import React, {useState} from 'react';
-import {SafeAreaView, Text, StyleSheet} from 'react-native';
+import {SafeAreaView, Text, StyleSheet, View, Image} from 'react-native';
 import {TouchableOpacity, TextInput} from 'react-native';
+import ArrowImage from '../../assets/img/arrow.png';
+import firebase from "../../utils/firebase";
+import {showMessage} from "react-native-flash-message";
 
 function SignUp(props) {
     let {setShow, dispatch} = props;
     const [showSignup, setShowSignup] = useState(null);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [firstNameValidator, setFirstNameValidator] = useState(false);
+    const [email, setEmail] = useState("");
+    const [emailValidator, setEmailValidator] = useState(false);
+    const [password, setPassword] = useState("");
+    const [passwordValidator, setPasswordValidator] = useState(false);
+    const signupHandler = () => {
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(data => {
+            let uid = data.user.uid;
+            let userObj = {
+                firstName: firstName,
+                lastName: lastName,
+                email,
+                photoURL: "",
+                uid: uid
+            };
+            firebase.database().ref("/users").child(uid).set(userObj).then(res => {
+            })
+                .catch(err => {
+                    showMessage({
+                        message: error.message,
+                        type: "danger",
+                        backgroundColor: "red",
+                        color: "white",
+                        icon: "danger"
+                    });
+                })
+        }).catch(function (error) {
+            showMessage({
+                message: error.message,
+                type: "danger",
+                backgroundColor: "red",
+                color: "white",
+                icon: "danger"
+            });
+        });
+    };
     const showComponent = () => {
         switch (showSignup) {
             case "email":
                 return <SafeAreaView style={styles.signUpView}>
+                    <View style={styles.fullWidth}>
+                        <TouchableOpacity onPress={() => setShowSignup(null)}>
+                            <Image
+                                source={ArrowImage}
+                                style={styles.arrowStyle}
+                            >
+                            </Image>
+                        </TouchableOpacity>
+                    </View>
                     <Text style={styles.signUpTexts}>Enter Email</Text>
-                    <TextInput placeholder={'email@domail.com'} style={styles.signUpInputFields}/>
+                    <TextInput placeholder={'Your Email address'}
+                               value={email ? email : ""}
+                               onChangeText={value => {
+                                   setEmailValidator(false);
+                                   setEmail(value.replace(/\s/g, ''))
+                               }}
+                               style={styles.signUpInputFields}/>
+                    {
+                        emailValidator &&
+                        <Text style={{color: "red"}}>Email field is required</Text>
+                    }
                     <TouchableOpacity style={styles.signButton}
-                                      onPress={() => dispatch({type: "SET_LOGGEDIN", payload: true})}>
-                        <Text style={styles.logInButtonTextss}>SIGN UP</Text>
+                                      onPress={() => {
+                                          if (!email | email === "") {
+                                              setEmailValidator(true)
+                                          } else {
+                                              setShowSignup("password")
+                                          }
+                                      }}>
+                        <Text style={styles.logInButtonTextss}>NEXT</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.signButton} onPress={() => setShowSignup(null)}>
-                        <Text style={styles.logInButtonTextss}>BACK</Text>
+                </SafeAreaView>;
+            case "password":
+                return <SafeAreaView style={styles.signUpView}>
+                    <View style={styles.fullWidth}>
+                        <TouchableOpacity onPress={() => setShowSignup("email")}>
+                            <Image
+                                source={ArrowImage}
+                                style={styles.arrowStyle}
+                            >
+                            </Image>
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={styles.signUpTexts}>Enter Password</Text>
+                    <TextInput
+                        placeholder={'password'}
+                        value={password ? password : ""}
+                        onChangeText={value => {
+                            setPasswordValidator(false);
+                            setPassword(value)
+                        }}
+                        secureTextEntry={true}
+                        style={styles.signUpInputFields}
+                    />
+                    {
+                        passwordValidator &&
+                        <Text
+                            style={{color: "red"}}>{password ? "Password length should be 8 characters" : "This field is required"}</Text>
+                    }
+                    <TouchableOpacity style={styles.signButton}
+                                      onPress={() => {
+                                          if (!password || password.length < 8) {
+                                              setPasswordValidator(true)
+                                          } else {
+                                              signupHandler()
+                                          }
+                                      }}>
+                        <Text style={styles.logInButtonTextss}>SIGN UP</Text>
                     </TouchableOpacity>
                 </SafeAreaView>;
             default:
                 return <SafeAreaView style={styles.signUpView}>
+                    <View style={styles.fullWidth}>
+                        <TouchableOpacity onPress={() => setShow(null)}>
+                            <Image
+                                source={ArrowImage}
+                                style={styles.arrowStyle}
+                            >
+                            </Image>
+                        </TouchableOpacity>
+                    </View>
                     <Text style={styles.signUpTexts}>Enter Name</Text>
-                    <TextInput placeholder={'First name'} style={styles.signUpInputFields}/>
-                    <TextInput placeholder={'Last name'} style={styles.signUpInputFieldss}/>
-                    <TouchableOpacity onPress={() => setShowSignup("email")} style={styles.signButton}>
+                    <TextInput
+                        placeholder={'First name'}
+                        autoFocus
+                        value={firstName ? firstName : ""}
+                        onChangeText={value => {
+                            setFirstNameValidator(false);
+                            setFirstName(value)
+                        }}
+                        style={styles.signUpInputFields}/>
+                    {
+                        firstNameValidator &&
+                        <Text style={{color: "red"}}>First Name is required</Text>
+                    }
+                    <TextInput
+                        onChangeText={value => setLastName(value)}
+                        placeholder={'Last name'}
+                        value={lastName ? lastName : ""}
+                        style={styles.signUpInputFieldss}/>
+                    <TouchableOpacity onPress={() => {
+                        if (!firstName) {
+                            setFirstNameValidator(true)
+                        } else {
+                            setShowSignup("email")
+                        }
+                    }} style={styles.signButton}>
                         <Text style={styles.logInButtonTextss}>NEXT</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.signButton} onPress={() => setShow(null)}>
-                        <Text style={styles.logInButtonTextss}>BACK</Text>
                     </TouchableOpacity>
                 </SafeAreaView>
         }
@@ -41,6 +170,19 @@ function SignUp(props) {
 export default SignUp;
 
 const styles = StyleSheet.create({
+
+    fullWidth: {
+        width: '100%',
+        display: 'flex',
+        textAlign: 'left',
+        marginLeft: 35
+    },
+
+    arrowStyle: {
+        height: 16,
+        width: 16,
+    },
+
     signUpView: {
         backgroundColor: 'black',
         flex: 1,

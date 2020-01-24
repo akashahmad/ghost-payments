@@ -3,6 +3,10 @@ const Context = React.createContext();
 
 const reducer = (state, action) => {
     switch (action.type) {
+        case "SET_USER":
+            return {...state, user: action.payload};
+        case "SET_ID":
+            return {...state, id: action.payload};
         case "SET_LOADER":
             return {...state, loader: action.payload};
         case "SET_LOGGEDIN":
@@ -17,6 +21,8 @@ export class Provider extends Component {
         dispatch: action => {
             this.setState(state => reducer(state, action))
         },
+        id: null,
+        user: null,
         loader: false,
         loggedIn: false
     };

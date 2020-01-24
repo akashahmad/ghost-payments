@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, ScrollView, View, Text, StatusBar, Image, Button, StyleSheet} from 'react-native';
 import {TouchableOpacity, TextInput} from 'react-native';
 import globalStyles from '../../styles/global';
 import LogSignImageLogo from '../../assets/img/log-sign-logo.png';
-import {showMessage} from "react-native-flash-message";
 import firebase from "../../utils/firebase";
-
+import ArrowImage from '../../assets/img/arrow.png';
 function LogIn(props) {
     let {dispatch, setShow} = props;
     const [email, setEmail] = useState(null);
@@ -14,7 +13,7 @@ function LogIn(props) {
     const [passwordEmpty, setPassEmp] = useState(null);
     const [message, setMessage] = useState(null);
 
-    signIn = () => {
+    const signIn = () => {
         setEmailEmp(!email);
         setPassEmp(!password);
         if (!email || !password) {
@@ -27,12 +26,6 @@ function LogIn(props) {
         setMessage('Signing in...');
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then(confirmResult => {
-                firebase.auth().currentUser.getIdTokenResult().then((token) => {
-                    dispatch({
-                        type: "SET_LOADER",
-                        payload: false
-                    });
-                });
                 setMessage(null);
             })
             .catch(error => {
@@ -43,16 +36,25 @@ function LogIn(props) {
                 setMessage(`Something went wrong please try again!`);
             });
     };
-    setEmailVal = (value) => {
+    const setEmailVal = (value) => {
         setEmail(value);
         setEmailEmp(!value);
     };
-    setPassVal = (value) => {
+    const setPassVal = (value) => {
         setPass(value);
         setPassEmp(!value);
     };
     return (
         <SafeAreaView style={styles.signUpView}>
+            <View style={styles.fullWidth}>
+                <TouchableOpacity onPress={() => setShow(null)}>
+                    <Image
+                        source={ArrowImage}
+                        style={styles.arrowStyle}
+                    >
+                    </Image>
+                </TouchableOpacity>
+            </View>
             <Image
                 source={LogSignImageLogo}
                 style={globalStyles.LogInSignUpLogoss}
@@ -76,14 +78,11 @@ function LogIn(props) {
                 passwordEmpty &&
                 <Text style={{color: "red"}}>Password field is required</Text>
             }
-            <TouchableOpacity onPress={() => this.signIn()}
+            <TouchableOpacity onPress={() => signIn()}
                               style={styles.signButton}>
                 <Text style={styles.logInButtonTextss}>LOG IN</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setShow(null)} style={styles.signButton}>
-                <Text style={styles.logInButtonTextss}>Back</Text>
-            </TouchableOpacity>
-            <Text>{message}</Text>
+            <Text style={message === 'Signing in...' ? {color: "white"} : {color: "red"}}>{message}</Text>
         </SafeAreaView>
     )
 }
@@ -91,6 +90,19 @@ function LogIn(props) {
 export default LogIn;
 
 const styles = StyleSheet.create({
+
+    fullWidth: {
+        width: '100%',
+        display: 'flex',
+        textAlign: 'left',
+        marginLeft: 35
+    },
+
+    arrowStyle: {
+        height: 16,
+        width: 16,
+    },
+
     signUpView: {
         backgroundColor: 'black',
         flex: 1,
