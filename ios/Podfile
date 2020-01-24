@@ -3,6 +3,12 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 target 'GhostPayments' do
   # Pods for GhostPayments
+  pod 'RNFirebase'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Core'
+  pod 'Firebase/Functions'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -36,6 +42,7 @@ target 'GhostPayments' do
 
 
 
+
   target 'GhostPaymentsTests' do
     inherit! :search_paths
     # Pods for testing
@@ -43,6 +50,11 @@ target 'GhostPayments' do
 
   use_native_modules!
 end
+
+# target 'RNFirebase' do
+#   platform :ios, '9.0'
+#   pod 'Firebase/Core', '~> 5.3.0'
+# end
 
 target 'GhostPayments-tvOS' do
   # Pods for GhostPayments-tvOS

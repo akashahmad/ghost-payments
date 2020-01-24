@@ -9,6 +9,7 @@ import globalStyles from '../styles/global';
 import LogSignImageLogo from '../assets/img/log-sign-logo.png';
 import Login from "./LogIn/container";
 import Signup from "./SignUp/container";
+import Layout from "./layout/container";
 function Auth() {
     const [show, setShow] = useState(null);
     const showComponent = () => {
@@ -33,7 +34,9 @@ function Auth() {
         }
     };
     return (
-        showComponent()
+        <Layout>
+            {showComponent()}
+        </Layout>
     )
 }
 

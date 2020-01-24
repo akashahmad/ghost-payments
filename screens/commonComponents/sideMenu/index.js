@@ -6,6 +6,7 @@ import NavLogoIcon from '../../../assets/img/nav-icon-logo.png';
 import Coffee from '../../../assets/img/coffee.png';
 import Card from '../../../assets/img/card.png';
 import LogoutIcon from '../../../assets/img/logout-icon.png';
+import firebase from "../../../utils/firebase";
 
 class SideMenu extends Component {
     navigateToScreen = (route) => () => {
@@ -17,8 +18,20 @@ class SideMenu extends Component {
     };
 
     signOut = () => {
-        let {dispatch} = this.props;
-        dispatch({type: "SET_LOGGEDIN", payload: false})
+        let { dispatch } = this.props;
+        dispatch({
+            type: "SET_USER",
+            payload: null
+        });
+        dispatch({
+            type: "SET_ID",
+            payload: null
+        });
+        dispatch({
+            type: "SET_LOGGEDIN",
+            payload: false
+        });
+        firebase.auth().signOut();
     };
 
     render() {
