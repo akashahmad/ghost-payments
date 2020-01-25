@@ -52,7 +52,7 @@ class SideMenu extends Component {
                             />
                             <Text style={styles.navItemStyle}>Favorite Coffee</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={this.navigateToScreen('Home')} style={styles.navRowFlexss}>
+                        <TouchableOpacity onPress={this.navigateToScreen('Payment')} style={styles.navRowFlexss}>
                             <Image
                                 source={Card}
                                 style={styles.coffeeImage}
