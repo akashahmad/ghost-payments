@@ -58,7 +58,7 @@ function Dashboard(props) {
                         style={styles.accessButton}
                         onPress={() => chooseImage()}>
                         <Image
-                            source={user.photoURL ? {uri: user.photoURL} : ProfileAvatar}
+                            source={user.photoURL ? ({uri: user.photoURL}) : ProfileAvatar}
                             style={styles.profileAvatarDimensions}>
                         </Image>
                     </TouchableOpacity>
