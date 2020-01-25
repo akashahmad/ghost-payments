@@ -9,9 +9,6 @@ import firebase from "../../utils/firebase";
 function Dashboard(props) {
     let {user: propUser, id} = props;
     const [user, setUser] = useState(propUser);
-    useEffect(() => {
-        setUser(propUser);
-    });
     const chooseImage = () => {
         let options = {
             storageOptions: {
@@ -48,7 +45,7 @@ function Dashboard(props) {
             let updateUser = {...user};
             updateUser.photoURL = res.downloadURL;
             setUser({...updateUser});
-            firebase.database().ref("/users").child(id).set(user);
+            firebase.database().ref("/users/" + id + "/photoURL").set(user);
         }).catch((err) => {
             console.log("err", err);
         });
