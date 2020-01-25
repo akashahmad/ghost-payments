@@ -21,7 +21,7 @@ function Dashboard(props) {
                 path: 'images',
             },
         };
-        ImagePicker.launchCamera(options, (response) => {
+        ImagePicker.launchImageLibrary(options, (response) => {
             if (response.didCancel) {
                 console.log('User cancelled image picker');
             } else if (response.error) {
@@ -33,18 +33,6 @@ function Dashboard(props) {
                 update(response);
             }
         });
-        // ImagePicker.launchImageLibrary(options, (response) => {
-        //     if (response.didCancel) {
-        //         console.log('User cancelled image picker');
-        //     } else if (response.error) {
-        //         console.log('ImagePicker Error: ', response.error);
-        //     } else if (response.customButton) {
-        //         console.log('User tapped custom button: ', response.customButton);
-        //         alert(response.customButton);
-        //     } else {
-        //         update(response);
-        //     }
-        // });
     };
 
     const update = (response) => {
@@ -73,25 +61,7 @@ function Dashboard(props) {
     return (
         <View style={styles.homeViewsss}>
             <ScrollView>
-                {user.photoURL && user.photoURL === "loader" ? (
-                    <View style={styles.imgContainer}>
-                        <AnimatedCircularProgress
-                            size={100}
-                            width={9}
-                            fill={progress}
-                            tintColor={"#32c5ff"}
-                            rotation={0}
-                            backgroundColor="#fff"
-                        >
-                            {
-                                (fill) => (
-                                    <Text>
-                                        { Math.floor(fill) }%
-                                    </Text>
-                                )
-                            }
-                        </AnimatedCircularProgress>
-                    </View>) : (<View style={styles.profileAvatarCenter}>
+                {<View style={styles.profileAvatarCenter}>
                     <TouchableOpacity
                         style={styles.accessButton}
                         onPress={() => chooseImage()}>
@@ -100,7 +70,7 @@ function Dashboard(props) {
                             style={styles.profileAvatarDimensions}>
                         </Image>
                     </TouchableOpacity>
-                </View>)}
+                </View>}
                 <View style={styles.transactionColumn}>
                     <Text style={styles.transactionText}>
                         Transactions
