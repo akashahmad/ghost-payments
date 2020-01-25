@@ -9,9 +9,9 @@ import firebase from "../../utils/firebase";
 function Dashboard(props) {
     let {user: propUser, id} = props;
     const [user, setUser] = useState(propUser);
-    // useEffect(() => {
-    //     setUser(propUser);
-    // }, [propUser]);
+    useEffect(() => {
+        setUser(propUser);
+    });
     const chooseImage = () => {
         let options = {
             storageOptions: {
