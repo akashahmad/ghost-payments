@@ -3,17 +3,15 @@ import React, {useState, useEffect} from "react";
 import ProfileAvatar from '../../assets/img/profile-avatar.png';
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
-import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import firebase from "../../utils/firebase";
 
 
 function Dashboard(props) {
-    const [progress, setProgress] = useState(0);
     let {user: propUser, id} = props;
     const [user, setUser] = useState(propUser);
-    useEffect(() => {
-        setUser(propUser);
-    }, [propUser]);
+    // useEffect(() => {
+    //     setUser(propUser);
+    // }, [propUser]);
     const chooseImage = () => {
         let options = {
             storageOptions: {
@@ -28,7 +26,6 @@ function Dashboard(props) {
                 console.log('ImagePicker Error: ', response.error);
             } else if (response.customButton) {
                 console.log('User tapped custom button: ', response.customButton);
-                alert(response.customButton);
             } else {
                 update(response);
             }
@@ -44,15 +41,13 @@ function Dashboard(props) {
             updateUser.photoURL = "loader";
             setUser({...updateUser});
             data.on('state_changed', function (snapshot) {
-                let percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setProgress(percent);
+
             });
             return data;
         }).then(res => {
             let updateUser = {...user};
             updateUser.photoURL = res.downloadURL;
             setUser({...updateUser});
-            setProgress(0);
             firebase.database().ref("/users").child(id).set(user);
         }).catch((err) => {
             console.log("err", err);
