@@ -83,6 +83,7 @@ function Payment(props) {
             type: "SET_LOADER",
             payload: true
         });
+        console.log("remove", JSON.stringify(requestedData));
         axios.post(apiPath + "/removePayment", requestedData).then(res => {
             dispatch({
                 type: "SET_LOADER",
@@ -103,6 +104,7 @@ function Payment(props) {
                     duration: 5000
                 })
             }
+            console.log(err)
         })
     };
 
