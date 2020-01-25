@@ -6,7 +6,7 @@ import {View} from "react-native";
 import Toggle from "../commonComponents/toggle";
 import SideMenu from "../commonComponents/sideMenu/container";
 import MainDashboard from "../mainDashboard/container";
-import Coffee from "../coffee/index";
+import Coffee from "../coffee/container";
 import Payment from "../payment/index";
 import Login from "../LogIn/container";
 import SignUp from "../SignUp/container";
@@ -31,14 +31,12 @@ const AppStack = createStackNavigator({
     Coffee: {
         screen: Coffee,
         navigationOptions: ({navigation}) => ({
-            
             headerTitle: "Coffee"
         })
     },
     Payment: {
         screen: Payment,
         navigationOptions: ({navigation}) => ({
-            
             headerTitle: "Payment Method"
         })
     },

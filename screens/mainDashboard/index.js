@@ -1,19 +1,106 @@
-import {View, StyleSheet, Text, ScrollView, Image} from "react-native";
-import React from "react";
-import GhostHeaderLogo from '../../assets/img/ghost-header.png';
+import {View, StyleSheet, Text, ScrollView, Image, TouchableOpacity} from "react-native";
+import React, {useState, useEffect} from "react";
 import ProfileAvatar from '../../assets/img/profile-avatar.png';
+import ImagePicker from 'react-native-image-picker';
+import ImageResizer from 'react-native-image-resizer';
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import firebase from "../../utils/firebase";
 
-function Dashboard() {
+
+function Dashboard(props) {
+    const [progress, setProgress] = useState(0);
+    let {user: propUser, id} = props;
+    const [user, setUser] = useState(propUser);
+    useEffect(() => {
+        setUser(propUser);
+    }, [propUser]);
+    const chooseImage = () => {
+        let options = {
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.launchCamera(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                update(response);
+            }
+        });
+        // ImagePicker.launchImageLibrary(options, (response) => {
+        //     if (response.didCancel) {
+        //         console.log('User cancelled image picker');
+        //     } else if (response.error) {
+        //         console.log('ImagePicker Error: ', response.error);
+        //     } else if (response.customButton) {
+        //         console.log('User tapped custom button: ', response.customButton);
+        //         alert(response.customButton);
+        //     } else {
+        //         update(response);
+        //     }
+        // });
+    };
+
+    const update = (response) => {
+        ImageResizer.createResizedImage((Platform.OS === "ios" ? response.uri : response.path), 1000, 700, 'JPEG', 50).then((response) => {
+            const storage = firebase.storage();
+            const imageRef = storage.ref('profiles').child(id);
+            let data = imageRef.putFile(response.uri);
+            let updateUser = {...user};
+            updateUser.photoURL = "loader";
+            setUser({...updateUser});
+            data.on('state_changed', function (snapshot) {
+                let percent = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setProgress(percent);
+            });
+            return data;
+        }).then(res => {
+            let updateUser = {...user};
+            updateUser.photoURL = res.downloadURL;
+            setUser({...updateUser});
+            setProgress(0);
+            firebase.database().ref("/users").child(id).set(user);
+        }).catch((err) => {
+            console.log("err", err);
+        });
+    };
     return (
         <View style={styles.homeViewsss}>
             <ScrollView>
-                <View style={styles.profileAvatarCenter}>
-                    <Image 
-                        source={ProfileAvatar}
-                        style={styles.profileAvatarDimensions}
-                    >
-                    </Image>
-                </View>
+                {user.photoURL && user.photoURL === "loader" ? (
+                    <View style={styles.imgContainer}>
+                        <AnimatedCircularProgress
+                            size={100}
+                            width={9}
+                            fill={progress}
+                            tintColor={"#32c5ff"}
+                            rotation={0}
+                            backgroundColor="#fff"
+                        >
+                            {
+                                (fill) => (
+                                    <Text>
+                                        { Math.floor(fill) }%
+                                    </Text>
+                                )
+                            }
+                        </AnimatedCircularProgress>
+                    </View>) : (<View style={styles.profileAvatarCenter}>
+                    <TouchableOpacity
+                        style={styles.accessButton}
+                        onPress={() => chooseImage()}>
+                        <Image
+                            source={user.photoURL ? {uri: user.photoURL} : ProfileAvatar}
+                            style={styles.profileAvatarDimensions}>
+                        </Image>
+                    </TouchableOpacity>
+                </View>)}
                 <View style={styles.transactionColumn}>
                     <Text style={styles.transactionText}>
                         Transactions
@@ -72,7 +159,7 @@ function Dashboard() {
                     </Text>
                 </View>
             </ScrollView>
-        </View> 
+        </View>
     )
 }
 

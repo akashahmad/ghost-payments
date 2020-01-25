@@ -8,9 +8,9 @@ const index = (props) => {
             {
                 ({dispatch, id, user}) => (
                     <Component
-                        id={id} user={user}
                         dispatch={dispatch}
                         navigation={navigation}
+                        id={id} user={user}
                     />
                 )
             }

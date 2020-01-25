@@ -1,7 +1,19 @@
 import {View, StyleSheet, Text, ScrollView, Image, TextInput, TouchableOpacity} from "react-native";
-import React from "react";
+import React, {useState, useEffect} from "react";
+import firebase from "../../utils/firebase";
 
-function Dashboard() {
+function Dashboard(props) {
+    let {user: propUser, id, navigation} = props;
+    const [user, setUser] = useState(propUser);
+    useEffect(() => {
+        setUser(propUser);
+    }, [propUser]);
+
+
+    const updateHandler = () => {
+        firebase.database().ref("/users").child(id).set(user);
+        navigation.navigate('Home')
+    };
     return (
         <View style={styles.homeViewsss}>
             <ScrollView>
@@ -14,16 +26,25 @@ function Dashboard() {
                     </Text>
                 </View>
                 <View style={styles.inputCoffeeContainer}>
-                    <TextInput placeholder={'What%s your favorite coffee?'} style={styles.signUpInputFields}/>
+                    <TextInput
+                        onChangeText={value => {
+                            let updateUser = {...user};
+                            updateUser.favoriteCoffee = value;
+                            setUser({...updateUser})
+                        }}
+                        value={user.favoriteCoffee ? user.favoriteCoffee : ""}
+                        placeholder={'What%s your favorite coffee?'} style={styles.signUpInputFields}/>
                 </View>
                 <View style={styles.centerButton}>
                     <TouchableOpacity
-                                style={styles.signButton}>
+                        onPress={() => updateHandler()}
+                        disabled={!user.favoriteCoffee}
+                        style={styles.signButton}>
                         <Text style={styles.logInButtonTextss}>CONFIRM</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-        </View> 
+        </View>
     )
 }
 
