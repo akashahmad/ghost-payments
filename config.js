@@ -1,1 +1,1 @@
-export const apiPath = "https://us-central1-ghost-payments.cloudfunctions.net/";
+export const apiPath = "https://us-central1-ghost-payments.cloudfunctions.net";

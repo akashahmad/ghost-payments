@@ -1,45 +1,209 @@
 import {View, StyleSheet, Text, ScrollView, Image, TextInput, TouchableOpacity} from "react-native";
-import React from "react";
+import React, {useState} from "react";
+import {showMessage} from "react-native-flash-message";
+import {CreditCardInput} from "react-native-credit-card-input";
+import {deletePopup} from '../functions'
+import {apiPath} from '../../config'
+import axios from 'axios';
+function Payment(props) {
+    let {user, dispatch} = props;
+    const [valid, setValid] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
+    const [card, setCard] = useState({
+        number: "",
+        exp_year: "",
+        cvc: "",
+    });
+    const cardValidator = (form) => {
+        setErrorMessage(false);
+        let monthYear = form.values.expiry ? form.values.expiry : "";
+        monthYear ? monthYear = monthYear.split("/") : "";
+        let card = {
+            number: form.values.number ? form.values.number : "",
+            exp_month: monthYear ? monthYear[0] : "",
+            exp_year: monthYear ? monthYear[1] : "",
+            cvc: form.values.cvc ? form.values.cvc : "",
+        }
+        setCard(card);
+        setValid(form.valid);
+    };
+    const addPayment = () => {
+        let requestedData = {
+            card,
+            email: user.email,
+            user
+        };
+        console.log("requestedData", JSON.stringify(requestedData));
+        if (!valid) {
+            setErrorMessage(true)
+        }
+        else {
+            dispatch({
+                type: "SET_LOADER",
+                payload: true
+            });
+            axios.post(apiPath + "/addPaymentDetail", requestedData).then(res => {
+                dispatch({
+                    type: "SET_LOADER",
+                    payload: false
+                });
+                showMessage({
+                    message: "Payment Method Successfully Added.",
+                    type: "success",
+                    backgroundColor: "#28a745",
+                    color: "white",
+                    icon: "info",
+                    duration: 5000
+                })
+            }).catch(err => {
+                dispatch({
+                    type: "SET_LOADER",
+                    payload: false
+                });
+                if (err.response && err.response.data && err.response.data.err && err.response.data.err.raw && err.response.data.err.raw.message) {
+                    showMessage({
+                        message: err.response.data.err.raw.message,
+                        type: "danger",
+                        backgroundColor: "red",
+                        color: "white",
+                        icon: "info",
+                        duration: 5000
+                    })
+                }
+                console.log(err)
+            })
+        }
+    };
 
-function Payment() {
+    const removePaymentMehtod = () => {
+        let requestedData = {
+            user
+        };
+        dispatch({
+            type: "SET_LOADER",
+            payload: true
+        });
+        axios.post(apiPath + "/removePayment", requestedData).then(res => {
+            dispatch({
+                type: "SET_LOADER",
+                payload: false
+            });
+        }).catch(err => {
+            dispatch({
+                type: "SET_LOADER",
+                payload: false
+            });
+            if (err.response && err.response.data && err.response.data.err && err.response.data.err.raw && err.response.data.err.raw.message) {
+                showMessage({
+                    message: err.response.data.err.raw.message,
+                    type: "danger",
+                    backgroundColor: "red",
+                    color: "white",
+                    icon: "info",
+                    duration: 5000
+                })
+            }
+        })
+    };
+
+    const switchBrand = (brand) => {
+        switch (brand) {
+            case "MasterCard":
+                return <Image source={require("../../assets/img/mastercard.jpeg")}
+                              style={{width: 32, height: 32, marginTop: 40}}/>;
+            case "American Express":
+                return <Image source={require("../../assets/img/americanExpress.jpg")}
+                              style={{width: 32, height: 32, marginTop: 40}}/>;
+            case "Visa":
+                return <Image source={require("../../assets/img/visa.jpg")}
+                              style={{width: 32, height: 32, marginTop: 40}}/>;
+            default:
+                return <Text style={styles.orManuallyCreateNText}>{brand}</Text>
+        }
+    };
     return (
         <View style={styles.homeViewsss}>
             <ScrollView>
-                <View style={styles.transactionColumn}>
-                    <Text style={styles.transactionText}>
-                        Add credit card
-                    </Text>
-                </View>
-                <View style={styles.cardNumberTextContainer}>
-                    <Text style={styles.cardNumberText}>Card Number</Text>
-                </View>
-                <View style={styles.inputCoffeeContainer}>
-                    <TextInput placeholder={'Card number'} style={styles.signUpInputFields}/>
-                </View>
-                <View style={styles.expCodeContainer}>
-                    <View style={styles.cardNumberTextContainerss}>
-                        <Text style={styles.cardNumberText}>Exp. Date</Text>
-                        <TextInput placeholder={'MM/YY'} style={styles.expCodeInputField}/>
-                    </View>
-                    <View style={styles.cardNumberTextContainerssss}>
-                        <Text style={styles.cardNumberText}>CVV</Text>
-                        <TextInput placeholder={'123'} style={styles.expCodeInputField}/>
-                    </View>
-                </View>
-                <View style={styles.zipContainer}>
-                    <Text style={styles.cardNumberText}>Zip Code</Text>
-                </View>
-                <View style={styles.inputCoffeeContainer}>
-                    <TextInput placeholder={'Zip code'} style={styles.signUpInputFields}/>
-                </View>
-                <View style={styles.centerButton}>
-                    <TouchableOpacity
+                {user && user.source ?
+                    <View>
+                        <View style={styles.transactionColumn}>
+                            <Text style={styles.transactionText}>
+                                Credit card
+                            </Text>
+                        </View>
+                        <View style={styles.dFlux}>
+                            <View style={styles.dfluxx}>
+                                {switchBrand(user.source.brand)}
+                                <Text style={styles.orManuallyCreateNText}> &nbsp;
+                                    **** &nbsp;{user.source.last4}</Text>
+                            </View>
+                            <View style={styles.centerButton}>
+                                <TouchableOpacity
+                                    onPress={() => deletePopup(removePaymentMehtod, "1", "Are you sure you want to remove payment method?")}
+                                    style={styles.signButton}>
+                                    <Text style={styles.logInButtonTextss}>Remove</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View> : <View>
+                        <View style={styles.transactionColumn}>
+                            <Text style={styles.transactionText}>
+                                Add credit card
+                            </Text>
+                        </View>
+                        <View style={styles.mainCheck}>
+                            <CreditCardInput
+                                onChange={(form) => cardValidator(form)}
+                                invalidColor="red"
+                                cardScale={1}
+                                inputStyle={{color: "white"}}
+                                allowScroll={true}
+                            />
+                            {errorMessage && <Text style={styles.fieldLabelRequired}>Invalid Card Information</Text>}
+                        </View>
+                        <View style={styles.centerButton}>
+                            <TouchableOpacity
+                                onPress={() => addPayment()}
                                 style={styles.signButton}>
-                        <Text style={styles.logInButtonTextss}>SAVE</Text>
-                    </TouchableOpacity>
-                </View>
+                                <Text style={styles.logInButtonTextss}>SAVE</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>}
+                {/*<View style={styles.transactionColumn}>*/}
+                {/*<Text style={styles.transactionText}>*/}
+                {/*Add credit card*/}
+                {/*</Text>*/}
+                {/*</View>*/}
+                {/*<View style={styles.cardNumberTextContainer}>*/}
+                {/*<Text style={styles.cardNumberText}>Card Number</Text>*/}
+                {/*</View>*/}
+                {/*<View style={styles.inputCoffeeContainer}>*/}
+                {/*<TextInput placeholder={'Card number'} style={styles.signUpInputFields}/>*/}
+                {/*</View>*/}
+                {/*<View style={styles.expCodeContainer}>*/}
+                {/*<View style={styles.cardNumberTextContainerss}>*/}
+                {/*<Text style={styles.cardNumberText}>Exp. Date</Text>*/}
+                {/*<TextInput placeholder={'MM/YY'} style={styles.expCodeInputField}/>*/}
+                {/*</View>*/}
+                {/*<View style={styles.cardNumberTextContainerssss}>*/}
+                {/*<Text style={styles.cardNumberText}>CVV</Text>*/}
+                {/*<TextInput placeholder={'123'} style={styles.expCodeInputField}/>*/}
+                {/*</View>*/}
+                {/*</View>*/}
+                {/*<View style={styles.zipContainer}>*/}
+                {/*<Text style={styles.cardNumberText}>Zip Code</Text>*/}
+                {/*</View>*/}
+                {/*<View style={styles.inputCoffeeContainer}>*/}
+                {/*<TextInput placeholder={'Zip code'} style={styles.signUpInputFields}/>*/}
+                {/*</View>*/}
+                {/*<View style={styles.centerButton}>*/}
+                {/*<TouchableOpacity*/}
+                {/*style={styles.signButton}>*/}
+                {/*<Text style={styles.logInButtonTextss}>SAVE</Text>*/}
+                {/*</TouchableOpacity>*/}
+                {/*</View>*/}
             </ScrollView>
-        </View> 
+        </View>
     )
 }
 
@@ -241,4 +405,33 @@ const styles = StyleSheet.create({
         color: "black",
         flex: 1,
     },
+
+    dfluxx: {
+        display: "flex",
+        flexDirection: "row",
+    },
+    dFlux: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    orManuallyCreateNText: {
+        backgroundColor: "transparent",
+        color: "rgb(68, 68, 68)",
+        // fontFamily: ".AppleSystemUIFont",
+        fontSize: 18,
+        fontStyle: "normal",
+        fontWeight: "600",
+        textAlign: "left",
+        lineHeight: 30,
+        alignSelf: "flex-start",
+        paddingTop: 40
+    },
+    mainCheck: {
+        paddingTop: 30,
+        width: "100%"
+    },
+    fieldLabelRequired: {
+        color: "red"
+    }
 });

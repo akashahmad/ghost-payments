@@ -7,7 +7,7 @@ import Toggle from "../commonComponents/toggle";
 import SideMenu from "../commonComponents/sideMenu/container";
 import MainDashboard from "../mainDashboard/container";
 import Coffee from "../coffee/container";
-import Payment from "../payment/index";
+import Payment from "../payment/container";
 import Login from "../LogIn/container";
 import SignUp from "../SignUp/container";
 import Auth from "../Auth";
