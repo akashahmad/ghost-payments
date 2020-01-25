@@ -7,17 +7,30 @@ function Payment() {
             <ScrollView>
                 <View style={styles.transactionColumn}>
                     <Text style={styles.transactionText}>
-                        Enter credit card
+                        Add credit card
                     </Text>
+                </View>
+                <View style={styles.cardNumberTextContainer}>
+                    <Text style={styles.cardNumberText}>Card Number</Text>
                 </View>
                 <View style={styles.inputCoffeeContainer}>
                     <TextInput placeholder={'Card number'} style={styles.signUpInputFields}/>
                 </View>
-                <View style={styles.inputCoffeeContainer}>
-                    <TextInput placeholder={'Expiration date'} style={styles.signUpInputFieldsss}/>
+                <View style={styles.expCodeContainer}>
+                    <View style={styles.cardNumberTextContainerss}>
+                        <Text style={styles.cardNumberText}>Exp. Date</Text>
+                        <TextInput placeholder={'MM/YY'} style={styles.expCodeInputField}/>
+                    </View>
+                    <View style={styles.cardNumberTextContainerssss}>
+                        <Text style={styles.cardNumberText}>CVV</Text>
+                        <TextInput placeholder={'123'} style={styles.expCodeInputField}/>
+                    </View>
+                </View>
+                <View style={styles.zipContainer}>
+                    <Text style={styles.cardNumberText}>Zip Code</Text>
                 </View>
                 <View style={styles.inputCoffeeContainer}>
-                    <TextInput placeholder={'Security code'} style={styles.signUpInputFieldsss}/>
+                    <TextInput placeholder={'Zip code'} style={styles.signUpInputFields}/>
                 </View>
                 <View style={styles.centerButton}>
                     <TouchableOpacity
@@ -33,6 +46,54 @@ function Payment() {
 export default Payment;
 
 const styles = StyleSheet.create({
+
+    zipContainer: {
+        marginTop: 15,
+        width: '90%',
+        marginLeft: '5%'
+    },
+
+    expCodeContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    cardNumberTextContainer: {
+        marginTop: 20,
+        width: '90%',
+        marginLeft: '5%'
+    },
+
+    cardNumberTextContainerss: {
+        marginTop: 15,
+        marginLeft: '5%',
+        width: '43%'
+    },
+
+    cardNumberTextContainerssss: {
+        marginTop: 15,
+        marginRight: '5%',
+        width: '43%'
+    },
+
+    expCodeInputField: {
+        borderWidth: 1,
+        borderColor: 'white',
+        padding: 12,
+        // width: '90%',
+        borderWidth: 2,
+        borderRadius: 6,
+        backgroundColor: 'white',
+        color: 'black',
+        marginTop: 5,
+    },
+
+    cardNumberText: {
+        color: 'white',
+        fontWeight: '700',
+        fontSize: 14
+    },
 
     centerButton: {
         marginTop: 0,
@@ -73,10 +134,23 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         backgroundColor: 'white',
         color: 'black',
-        marginTop: 25
+        marginTop: 5
     },
 
     signUpInputFieldsss: {
+        borderWidth: 1,
+        borderColor: 'white',
+        padding: 12,
+        width: '35%',
+        borderWidth: 2,
+        borderRadius: 6,
+        backgroundColor: 'white',
+        color: 'black',
+        marginTop: 15,
+        marginLeft: '5%'
+    },
+
+    signUpInputFieldssss: {
         borderWidth: 1,
         borderColor: 'white',
         padding: 12,
@@ -85,7 +159,7 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         backgroundColor: 'white',
         color: 'black',
-        marginTop: 15
+        marginTop: 5,
     },
 
     coffeeInfoText: {

@@ -45,7 +45,7 @@ function Dashboard(props) {
             let updateUser = {...user};
             updateUser.photoURL = res.downloadURL;
             setUser({...updateUser});
-            firebase.database().ref("/users/" + id + "/photoURL").set(user);
+            firebase.database().ref("/users/" + id + "/photoURL").set(res.downloadURL);
         }).catch((err) => {
             console.log("err", err);
         });
