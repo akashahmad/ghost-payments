@@ -142,8 +142,8 @@ function Payment(props) {
                             <View style={styles.centerButton}>
                                 <TouchableOpacity
                                     onPress={() => deletePopup(removePaymentMehtod, "1", "Are you sure you want to remove payment method?")}
-                                    style={styles.signButton}>
-                                    <Text style={styles.logInButtonTextss}>Remove</Text>
+                                    style={styles.tabSmallBlueBtnTwoButton}>
+                                    <Text style={styles.tabSmallBlueBtnTwoButtonText}>Remove</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -435,5 +435,26 @@ const styles = StyleSheet.create({
     },
     fieldLabelRequired: {
         color: "red"
+    },
+    tabSmallBlueBtnTwoButton: {
+        backgroundColor: "transparent",
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: "white",
+        borderStyle: "solid",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 0,
+        marginTop: 40,
+        width: 157,
+        height: 31,
+    },
+    tabSmallBlueBtnTwoButtonText: {
+        color: "white",
+        fontSize: 10,
+        fontStyle: "normal",
+        fontWeight: "normal",
+        textAlign: "center",
     }
 });
