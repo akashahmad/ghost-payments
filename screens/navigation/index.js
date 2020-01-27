@@ -13,52 +13,53 @@ import {GeoFire} from 'geofire';
 import firebase from "../../utils/firebase";
 
 RNLocation.configure({
-    distanceFilter: 100, // Meters
+    distanceFilter: 1, // Meters
     desiredAccuracy: {
         ios: "best",
         android: "balancedPowerAccuracy"
     },
     // Android only
     androidProvider: "auto",
-    interval: 3000, // Milliseconds
-    fastestInterval: 10000, // Milliseconds
-    maxWaitTime: 3000, // Milliseconds
+    interval: 2000, // Milliseconds
+    fastestInterval: 5000, // Milliseconds
+    maxWaitTime: 2000, // Milliseconds
     // iOS Only
     activityType: "other",
     allowsBackgroundLocationUpdates: true,
     headingFilter: 1, // Degrees
     headingOrientation: "portrait",
     pausesLocationUpdatesAutomatically: false,
-    showsBackgroundLocationIndicator: false,
+    showsBackgroundLocationIndicator: true,
 })
+
 
 
 function Navgation(porps) {
     let {id} = porps;
-    useEffect(() => {
-        RNLocation.requestPermission({
-            ios: 'always', // or 'always'
-            android: {
-                detail: 'fine', // or 'fine'
-                rationale: {
-                    title: "We need to access your location",
-                    message: "We use your location to show where you are on the map",
-                    buttonPositive: "OK",
-                    buttonNegative: "Cancel"
-                }
+    RNLocation.requestPermission({
+        ios: 'always', // or 'always'
+        android: {
+            detail: 'fine', // or 'fine'
+            rationale: {
+                title: "We need to access your location",
+                message: "We use your location to show where you are on the map",
+                buttonPositive: "OK",
+                buttonNegative: "Cancel"
             }
-        }).then(granted => {
-            if (granted) {
-                startUpdatingLocation();
-            }
-        });
-    }, []);
+        }
+    }).then(granted => {
+        if (granted) {
+            startUpdatingLocation();
+        }
+    });
     const startUpdatingLocation = () => {
         RNLocation.subscribeToLocationUpdates(
             locations => {
                 const lat = parseFloat(locations[0].latitude);
                 const long = parseFloat(locations[0].longitude)
                 const key = id;
+                console.log(lat)
+                console.log(long)
                 const geoFire = new GeoFire(firebase.database().ref("/geolocs"));
                 let location = [lat, long];
                 geoFire.set(key, location).then(async res => {
