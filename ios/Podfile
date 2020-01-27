@@ -49,6 +49,9 @@ target 'GhostPayments' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-location', :path => '../node_modules/react-native-location'
+  pod 'react-native-location', :path => '../node_modules/react-native-location/react-native-location.podspec'
+
   target 'GhostPaymentsTests' do
     inherit! :search_paths
     # Pods for testing
