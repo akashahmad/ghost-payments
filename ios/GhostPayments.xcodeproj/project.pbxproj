@@ -17,6 +17,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* GhostPaymentsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GhostPaymentsTests.m */; };
+		41D6488423DE848E00F4F985 /* GhostPayments.app in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B07F961A680F5B00A75B9A /* GhostPayments.app */; };
 		485009030F905E265341D007 /* libPods-GhostPayments-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BE385BB8C6CD7070C2873B0 /* libPods-GhostPayments-tvOSTests.a */; };
 		48A14103F072A486DD624FA6 /* libPods-GhostPayments-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2891B1E5B175FA17482381B8 /* libPods-GhostPayments-tvOS.a */; };
 		CA91DCB9217F63DD9BA7E162 /* libPods-GhostPaymentsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABD49FAD06A1D6F6E87C7D7 /* libPods-GhostPaymentsTests.a */; };
@@ -57,6 +58,7 @@
 		2BE385BB8C6CD7070C2873B0 /* libPods-GhostPayments-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GhostPayments-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* GhostPayments-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GhostPayments-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* GhostPayments-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GhostPayments-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D6488123DE843300F4F985 /* GhostPayments.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = GhostPayments.xcodeproj; sourceTree = "<group>"; };
 		81FAAFAC5C5FC6F69775FAF6 /* Pods-GhostPayments-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GhostPayments-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-GhostPayments-tvOSTests/Pods-GhostPayments-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		93808945A3796F1786697583 /* libPods-GhostPayments.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GhostPayments.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A521A95854223EBB9ACF303D /* Pods-GhostPayments-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GhostPayments-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-GhostPayments-tvOSTests/Pods-GhostPayments-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B1D39F82F11E4F3755E8B20 /* libPods-GhostPayments.a in Frameworks */,
+				41D6488423DE848E00F4F985 /* GhostPayments.app in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,9 +152,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		41D6488223DE843300F4F985 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				41D6488123DE843300F4F985 /* GhostPayments.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -194,7 +203,6 @@
 				E80017318873AD3021A41072 /* Pods-GhostPaymentsTests.debug.xcconfig */,
 				08F37DAAEF2FFD54427672E5 /* Pods-GhostPaymentsTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,12 +316,19 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 41D6488223DE843300F4F985 /* Products */;
+					ProjectRef = 41D6488123DE843300F4F985 /* GhostPayments.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* GhostPayments */,
