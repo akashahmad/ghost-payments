@@ -18,3 +18,16 @@ export const deletePopup = (remove, id, message) => {
         ],
     );
 };
+
+export const distinct = (array, key) => {
+    let flags = [], output = [], l = array.length, i;
+    for (i = 0; i < l; i++) {
+        if (flags[array[i][key]] + "" !== "undefined") {
+            output[flags[array[i][key]]] = array[i];
+            continue;
+        }
+        output.push(array[i]);
+        flags[array[i][key]] = output.length - 1;
+    }
+    return output
+};
