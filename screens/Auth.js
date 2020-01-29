@@ -4,6 +4,7 @@ import {
     Text,
     Image,
     TouchableOpacity,
+    StatusBar
 } from 'react-native';
 import globalStyles from '../styles/global';
 import LogSignImageLogo from '../assets/img/log-sign-logo.png';
@@ -20,6 +21,7 @@ function Auth() {
                 return <Signup setShow={setShow}/>;
             default:
                 return <View style={globalStyles.newHero}>
+                    <StatusBar backgroundColor="black" barStyle="light-content" />
                     <Image
                         source={LogSignImageLogo}
                         style={globalStyles.LogInSignUpLogo}

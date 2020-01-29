@@ -46,6 +46,7 @@ function LogIn(props) {
     };
     return (
         <SafeAreaView style={styles.signUpView}>
+            <StatusBar backgroundColor="black" barStyle="light-content" />
             <View style={styles.fullWidth}>
                 <TouchableOpacity onPress={() => setShow(null)}>
                     <Image

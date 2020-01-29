@@ -33,7 +33,7 @@ function Dashboard(props) {
                             setUser({...updateUser})
                         }}
                         value={user.favoriteCoffee ? user.favoriteCoffee : ""}
-                        placeholder={'What%s your favorite coffee?'} style={styles.signUpInputFields}/>
+                        placeholder={'What\'s your favorite coffee?'} style={styles.signUpInputFields}/>
                 </View>
                 <View style={styles.centerButton}>
                     <TouchableOpacity
