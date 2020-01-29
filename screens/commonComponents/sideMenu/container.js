@@ -6,8 +6,8 @@ const index = (props) =>{
     return(
         <Consumer>
             {
-                ({dispatch,}) => (
-                    <Component dispatch={dispatch} navigation={navigation}/>
+                ({dispatch, id}) => (
+                    <Component dispatch={dispatch} navigation={navigation} id={id}/>
                 )
             }
         </Consumer>

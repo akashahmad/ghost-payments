@@ -13,7 +13,7 @@ import {GeoFire} from 'geofire';
 import firebase from "../../utils/firebase";
 
 RNLocation.configure({
-    distanceFilter: 1, // Meters
+    distanceFilter: 0, // Meters
     desiredAccuracy: {
         ios: "best",
         android: "balancedPowerAccuracy"
@@ -58,8 +58,6 @@ function Navgation(porps) {
                 const lat = parseFloat(locations[0].latitude);
                 const long = parseFloat(locations[0].longitude)
                 const key = id;
-                console.log(lat)
-                console.log(long)
                 const geoFire = new GeoFire(firebase.database().ref("/geolocs"));
                 let location = [lat, long];
                 geoFire.set(key, location).then(async res => {

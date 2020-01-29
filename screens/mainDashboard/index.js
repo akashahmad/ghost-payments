@@ -4,11 +4,29 @@ import ProfileAvatar from '../../assets/img/profile-avatar.png';
 import ImagePicker from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 import firebase from "../../utils/firebase";
+import {distinct} from "../functions";
 
 
 function Dashboard(props) {
     let {user: propUser, id} = props;
     const [user, setUser] = useState(propUser);
+    const [history, setHistory] = useState([]);
+    useEffect(() => {
+        firebase.database()
+            .ref('/usersMetadata/' + id)
+            .on('value',
+                (snapshot) => {
+                    let payments = snapshot.val();
+                    let ids = payments ? Object.keys(payments) : null;
+                    if (ids) {
+                        let newData = [];
+                        ids.forEach(sin => {
+                            newData.push({...payments[sin], id: sin});
+                            setHistory([...newData])
+                        })
+                    }
+                })
+    }, []);
     const chooseImage = () => {
         let options = {
             storageOptions: {
@@ -50,6 +68,7 @@ function Dashboard(props) {
             console.log("err", err);
         });
     };
+    let uniqueHistory = distinct(history, "id");
     return (
         <View style={styles.homeViewsss}>
             <ScrollView>
@@ -68,58 +87,23 @@ function Dashboard(props) {
                         Transactions
                     </Text>
                 </View>
-                <View style={styles.merchantNameColumn}>
-                    <Text style={styles.merchantNameText}>
-                        Mission Coffee Shop
-                    </Text>
-                </View>
-                <View style={styles.descriptionPriceFlex}>
-                    <Text style={styles.descriptionText}>
-                        Grande Black Coffee
-                    </Text>
-                    <Text style={styles.priceText}>
-                        $5.99
-                    </Text>
-                </View>
-                <View style={styles.merchantNameColumn}>
-                    <Text style={styles.merchantNameText}>
-                        Mission Coffee Shop
-                    </Text>
-                </View>
-                <View style={styles.descriptionPriceFlex}>
-                    <Text style={styles.descriptionText}>
-                        Grande Black Coffee
-                    </Text>
-                    <Text style={styles.priceText}>
-                        $5.99
-                    </Text>
-                </View>
-                <View style={styles.merchantNameColumn}>
-                    <Text style={styles.merchantNameText}>
-                        Mission Coffee Shop
-                    </Text>
-                </View>
-                <View style={styles.descriptionPriceFlex}>
-                    <Text style={styles.descriptionText}>
-                        Grande Black Coffee
-                    </Text>
-                    <Text style={styles.priceText}>
-                        $5.99
-                    </Text>
-                </View>
-                <View style={styles.merchantNameColumn}>
-                    <Text style={styles.merchantNameText}>
-                        Mission Coffee Shop
-                    </Text>
-                </View>
-                <View style={styles.descriptionPriceFlex}>
-                    <Text style={styles.descriptionText}>
-                        Grande Black Coffee
-                    </Text>
-                    <Text style={styles.priceText}>
-                        $5.99
-                    </Text>
-                </View>
+                {uniqueHistory && uniqueHistory.length !== 0 && uniqueHistory.map((sin, ind) =>
+                    <View>
+                        <View style={styles.merchantNameColumn}>
+                            <Text style={styles.merchantNameText}>
+                                {sin.shopName}
+                            </Text>
+                        </View>
+                        <View style={styles.descriptionPriceFlex}>
+                            <Text style={styles.descriptionText}>
+                                {sin.coffeeName}
+                            </Text>
+                            <Text style={styles.priceText}>
+                                ${sin.totalCharged}
+                            </Text>
+                        </View>
+                    </View>
+                )}
             </ScrollView>
         </View>
     )

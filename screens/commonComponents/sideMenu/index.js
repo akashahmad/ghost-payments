@@ -18,7 +18,12 @@ class SideMenu extends Component {
     };
 
     signOut = () => {
-        let { dispatch } = this.props;
+        let { dispatch, id } = this.props;
+        firebase.auth().signOut();
+        let backupId = "";
+        if(!backupId){
+            backupId=id;
+        }
         dispatch({
             type: "SET_USER",
             payload: null
@@ -31,7 +36,13 @@ class SideMenu extends Component {
             type: "SET_LOGGEDIN",
             payload: false
         });
-        firebase.auth().signOut();
+        firebase.database().ref('/geolocs/' + backupId).remove().then(removed => {
+        }).catch(er=>{
+            console.log("err", er);
+        });
+        firebase.database()
+            .ref('/usersMetadata/' + backupId)
+            .off()
     };
 
     render() {

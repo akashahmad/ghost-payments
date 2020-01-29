@@ -104,7 +104,6 @@ function Payment(props) {
                     duration: 5000
                 })
             }
-            console.log(err)
         })
     };
 
